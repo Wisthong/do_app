@@ -11,3 +11,11 @@ export interface Do {
     lista_descuento:         string;
     valor_descuentos:        string;
 }
+
+
+export interface DataDo{
+    id_item:                 string,
+    lapso_inicio:            string,
+    lapso_fin:               string,
+
+}

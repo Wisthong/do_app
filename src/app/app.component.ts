@@ -2,11 +2,11 @@ import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { DoService } from './services/do.service';
 import { Do } from './model/do';
-import { JsonPipe } from '@angular/common';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,JsonPipe],
+  imports: [RouterOutlet, SpinnerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -16,17 +16,17 @@ export class AppComponent {
 
   private readonly doSvc = inject(DoService);
 
-  ngOnInit(): void {
-    console.log('123');
-    this.doSvc.postDO().subscribe(
-      (resOk) => {
-        console.log(resOk);
-        this.doObject = resOk;
-      },
-      (resFail) => {
-        console.log(resFail);
-      }
-    );
+  // ngOnInit(): void {
+  //   console.log('123');
+  //   this.doSvc.postDO().subscribe(
+  //     (resOk) => {
+  //       console.log(resOk);
+  //       this.doObject = resOk;
+  //     },
+  //     (resFail) => {
+  //       console.log(resFail);
+  //     }
+  //   );
     // throw new Error('Method not implemented.');
-  }
+  // }
 }
