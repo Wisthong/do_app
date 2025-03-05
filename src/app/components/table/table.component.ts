@@ -12,15 +12,15 @@ export class TableComponent {
   @Input() listDO: Do[] = [];
   listSelectionDO: Do[] = [];
   private readonly toastrSvc = inject(ToastrService);
+  btnSeleccionado!: string;
 
-  ngOnInit(): void {
-    const now = new Date();
+  // ngOnInit(): void {
+  //   const now = new Date();
 
-    const anio = now.getUTCFullYear(); // Usando UTC para evitar problemas de zona horaria
-    const mes = (now.getUTCMonth() + 1).toString().padStart(2, '0');
-    const dia = now.getUTCDate().toString().padStart(2, '0'); // Usando UTC
-    console.log(`${anio}${mes}${dia}`);
-  }
+  //   const anio = now.getUTCFullYear(); // Usando UTC para evitar problemas de zona horaria
+  //   const mes = (now.getUTCMonth() + 1).toString().padStart(2, '0');
+  //   const dia = now.getUTCDate().toString().padStart(2, '0'); // Usando UTC
+  // }
 
   onSave(doItem: Do) {
     // Verificar si doItem ya está en la lista
@@ -33,7 +33,11 @@ export class TableComponent {
       return; // No agregamos el item si ya existe
     }
 
-    this.toastrSvc.success('Guardando', 'Mensaje');
+    this.toastrSvc.info(
+      'Elemento grabado para generar plano:  ' +
+        (this.listSelectionDO.length + 1),
+      'Mensaje'
+    );
 
     // Si no existe, lo agregamos
     this.listSelectionDO = [...this.listSelectionDO, doItem];
@@ -61,12 +65,61 @@ export class TableComponent {
     this.toastrSvc.success('Elemento eliminado', 'Eliminado');
   }
 
-  onConfirm() {
-    console.log('Me has presionado');
-    console.log('Lista DO seleccionada es: ', this.listSelectionDO);
+  onGeneratePlan() {
+    let codigo;
+    switch (this.btnSeleccionado) {
+      case 'kelly':
+        codigo = '003';
+
+        this.generateArchivePlan(codigo);
+        break;
+      case 'mayer':
+        codigo = '012';
+
+        this.generateArchivePlan(codigo);
+        break;
+      case 'ingrid':
+        codigo = '038';
+
+        this.generateArchivePlan(codigo);
+        break;
+      case 'alejandro':
+        codigo = '009';
+        this.generateArchivePlan(codigo);
+        break;
+      default:
+        break;
+    }
   }
 
+  btnKelly() {
+    this.btnSeleccionado = 'kelly';
+    this.toastrSvc.info(this.btnSeleccionado.toUpperCase(), 'Comprador');
+  }
+  btnMayer() {
+    this.btnSeleccionado = 'mayer';
+    this.toastrSvc.info(this.btnSeleccionado.toUpperCase(), 'Comprador');
+  }
   btnAlejandro() {
+    this.btnSeleccionado = 'alejandro';
+    this.toastrSvc.info(this.btnSeleccionado.toUpperCase(), 'Comprador');
+  }
+  btnIngrid() {
+    this.btnSeleccionado = 'ingrid';
+    this.toastrSvc.info(this.btnSeleccionado.toUpperCase(), 'Comprador');
+  }
+
+  // Función para generar 4 dígitos aleatorios
+  generarDigitosAleatorios(): string {
+    let digitos = '';
+    for (let i = 0; i < 4; i++) {
+      digitos += Math.floor(Math.random() * 10).toString();
+    }
+    return digitos;
+  }
+
+  // TODO: Funcion para generar archivo plano
+  generateArchivePlan(comprador: string) {
     const now = new Date();
     const anio = now.getUTCFullYear(); // Usando UTC para evitar problemas de zona horaria
     const mes = (now.getUTCMonth() + 1).toString().padStart(2, '0');
@@ -80,29 +133,40 @@ export class TableComponent {
     // Crear el contenido del archivo, agregando la posición de cada elemento con un salto de línea
     let contenido = '';
     for (let index = 0; index < this.listSelectionDO.length; index++) {
+      //TODO: Formateamos el valor_descuentos
+      let valor_descuentos = Math.floor(
+        parseFloat(this.listSelectionDO[index].valor_descuentos)
+      );
+      let valorFormateado = valor_descuentos.toFixed(2).replace('.', ''); // Elimina el punto
+      while (valorFormateado.length < 11) {
+        // Aseguramos 9 enteros + 2 decimales
+        valorFormateado = '0' + valorFormateado; // Rellenamos con ceros a la izquierda
+      }
+      valorFormateado += '+';
+
       contenido += `${(index + 1)
         .toString()
         .padEnd(8, ' ')}${this.listSelectionDO[index].proveedor_codigo
         .toString()
-        .padEnd(13, ' ')}00${anio}${mes}${dia}007 0  00310I               ${this.listSelectionDO[index].item}            ${Math.floor(parseFloat(this.listSelectionDO[index].valor_descuentos)).toString().padStart(11,'0')}+0000000001                                                             00000000        0000000000000000000000000\n`; // Agregar el número de la posición y un salto de línea
+        .padEnd(13, ' ')}00${anio}${mes}${dia}${comprador.padEnd(
+        4,
+        ' '
+      )}0  00310I               ${
+        this.listSelectionDO[index].item
+      }            ${valorFormateado}0000000001                                                             00000000        0000000000000000000000000\n`;
     }
 
     // Crear un Blob con el contenido
     const blob = new Blob([contenido], { type: 'text/plain' });
 
-    // Crear un enlace para descargar el archivo
-    const enlace = document.createElement('a');
-    enlace.href = URL.createObjectURL(blob);
-    enlace.download = nombreArchivo; // Nombre dinámico con los dígitos aleatorios
-    enlace.click();
-  }
+    this.toastrSvc.success('Se va a generar el archivo plano', 'Mensaje');
 
-  // Función para generar 4 dígitos aleatorios
-  generarDigitosAleatorios(): string {
-    let digitos = '';
-    for (let i = 0; i < 4; i++) {
-      digitos += Math.floor(Math.random() * 10).toString();
-    }
-    return digitos;
+    setTimeout(() => {
+      // Crear un enlace para descargar el archivo
+      const enlace = document.createElement('a');
+      enlace.href = URL.createObjectURL(blob);
+      enlace.download = nombreArchivo; // Nombre dinámico con los dígitos aleatorios
+      enlace.click();
+    }, 1000 * 5);
   }
 }

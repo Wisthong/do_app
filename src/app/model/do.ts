@@ -10,6 +10,7 @@ export interface Do {
     fecha:                   string;
     lista_descuento:         string;
     valor_descuentos:        string;
+    centro_operacion:        string;
 }
 
 
@@ -17,5 +18,5 @@ export interface DataDo{
     id_item:                 string,
     lapso_inicio:            string,
     lapso_fin:               string,
-
+    id_co:                   string,
 }

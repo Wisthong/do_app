@@ -18,10 +18,15 @@ export class PruebaComponent {
   private readonly doSvc = inject(DoService);
   private readonly toastrSvc = inject(ToastrService);
 
+
   searchForm = this.fb.nonNullable.group({
     id_item: [
       '',
       [Validators.required, Validators.minLength(2), Validators.maxLength(6)],
+    ],
+    id_co: [
+      '',
+      [Validators.required, Validators.minLength(3), Validators.maxLength(3)],
     ],
     lapso_inicio: [
       '',
@@ -35,7 +40,7 @@ export class PruebaComponent {
 
   onSearch() {
     if (this.searchForm.valid) {
-      const { id_item, lapso_fin, lapso_inicio } =
+      const { id_item, lapso_fin, lapso_inicio, id_co } =
         this.searchForm.getRawValue();
 
       if (id_item.length !== 6) {
@@ -46,6 +51,7 @@ export class PruebaComponent {
           id_item: newItem,
           lapso_fin,
           lapso_inicio,
+          id_co,
         };
 
         this.doSvc.postDO(arrayTmp).subscribe(
@@ -89,6 +95,7 @@ export class PruebaComponent {
           id_item,
           lapso_fin,
           lapso_inicio,
+          id_co,
         };
         this.doSvc.postDO(arrayTmp).subscribe(
           (resOk) => {

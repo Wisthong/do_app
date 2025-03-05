@@ -1,8 +1,8 @@
-<h1 class="text-center">Formulario</h1>
+<h1 class="text-center text-5xl font-bold pt-8 pb-8">Formulario</h1>
 <div class="grid grid-cols-12">
     <div class="col-start-2 col-span-10">
         <form (ngSubmit)="onSearch()" [formGroup]="searchForm">
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-4 gap-4">
                 <div class="mb-5">
                     <label for="id_item"
                         class="block mb-2 text-base text-black dark:text-blue-500 font-black">Item</label>
@@ -27,7 +27,7 @@
                     @if (searchForm.controls['id_item'].touched &&
                     searchForm.controls['id_item'].hasError('maxlength')) {
                     <p class="my-2 text-center text-gray-100 dark:text-gray-100 bg-red-700 rounded-md">
-                        Tu fecha debe tener maximo 6 digitos
+                        El id_item debe tener maximo 6 digitos
                     </p>
                     }
                 </div>
@@ -89,12 +89,41 @@
                     }
                 </div>
 
-                <button type="submit"
-                    class="text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Confirmar
-                </button>
+                <div class="mb-5">
+                    <label for="id_co" class="block mb-2 text-base text-black dark:text-blue-500 font-black">Centro de
+                        operación</label>
+                    <input type="text" id="id_co"
+                        class="bg-gray-50 border border-gray-00 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="0245" formControlName="id_co" required />
+
+                    <!-- Validación de item -->
+                    @if (searchForm.controls['id_co'].touched &&
+                    searchForm.controls['id_co'].hasError('required')) {
+                    <p class="my-2 text-center text-gray-100 dark:text-gray-100 bg-red-700 rounded-md">
+                        Campo requerido
+                    </p>
+                    }
+
+                    @if (searchForm.controls['id_co'].touched &&
+                    searchForm.controls['id_co'].hasError('minlength')) {
+                    <p class="my-2 text-center text-gray-100 dark:text-gray-100 bg-red-700 rounded-md">
+                        El id_co debe tener minimo 3
+                    </p>
+                    }
+                    @if (searchForm.controls['id_co'].touched &&
+                    searchForm.controls['id_co'].hasError('maxlength')) {
+                    <p class="my-2 text-center text-gray-100 dark:text-gray-100 bg-red-700 rounded-md">
+                        El id_co debe tener maximo 3
+                    </p>
+                    }
+                </div>
 
             </div>
+
+            <button type="submit"
+                class="text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Confirmar
+            </button>
 
 
 
@@ -103,10 +132,9 @@
 </div>
 
 
-<!-- @if (listDO.length >0 ) { -->
+@if (listDO.length >0 ) {
 <!-- Aquí estamos pasando la lista listDO al componente TableComponent -->
 <section class="pt-12">
     <app-table [listDO]="listDO" />
 </section>
-
-<!-- } -->
+}
