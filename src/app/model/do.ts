@@ -5,6 +5,7 @@ export interface ResponseDo {
 
 export interface Do {
     item:                    string;
+    nombre_item:             string;
     proveedor_codigo:        string;
     proveedor_nombre:        string;
     fecha:                   string;

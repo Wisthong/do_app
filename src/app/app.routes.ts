@@ -1,16 +1,16 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { PruebaComponent } from './components/prueba/prueba.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     pathMatch: 'full',
+    title:'Ajustes directos de Compras'
   },
   {
-    path: 'prueba',
-    component: PruebaComponent,
-    title: 'Prueba de componente',
+    path: '**',
+    component: HomeComponent,
+    title: 'Redirige ...',
   },
 ];

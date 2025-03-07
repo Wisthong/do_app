@@ -18,10 +18,14 @@ export class DoService {
     //   lapso_fin: '20241228',
     // };
 
-    return this.http.post<ResponseDo>(this.apiUrl + '/querys', data).pipe(
+    return this.http.post<ResponseDo>(this.apiUrl + '/do', data).pipe(
       map(({ data }) => {
         return data[0];
       })
     );
+  }
+
+  uploadFile(formData: FormData): Observable<any> {
+    return this.http.post<any>(this.apiUrl + '/do/upload', formData);
   }
 }
