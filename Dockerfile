@@ -2,7 +2,7 @@ FROM node:22.14.0 as deps
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm install --force
 
 
 FROM node:22.14.0  as builder
@@ -17,7 +17,7 @@ FROM node:22.14.0 as runner
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm install --force
 COPY --from=builder /app/dist ./dist
 
 CMD [ "node","dist/do_app/browser" ]

@@ -138,7 +138,7 @@ export class TableComponent {
       }
       valorFormateado += '+';
 
-      contenido += `${(index + 1)
+      contenido += `${('1')
         .toString()
         .padEnd(8, ' ')}${this.listSelectionDO[index].proveedor_codigo
         .toString()
