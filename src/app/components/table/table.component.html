@@ -2,21 +2,24 @@
 
     <h1 class="text-center text-5xl font-bold pb-6 uppercase text-gray-600">Compradores </h1>
 
+    <p class="text-xl ">Selecciona el botón de preferencia. Al seleccionar el botón, se grabará ese
+        comprador, para luego generar el archivo del plano.</p>
+
     <div class="grid grid-cols-4 gap-x-2">
         <button type="button" (click)="btnAlejandro()"
-            class="my-4 text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            class="cursor-pointer my-4 text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Alejandro
         </button>
         <button type="button" (click)="btnKelly()"
-            class="my-4 text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            class="cursor-pointer my-4 text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Kelly
         </button>
         <button type="button" (click)="btnIngrid()"
-            class="my-4 text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            class="cursor-pointer my-4 text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Ingrid
         </button>
         <button type="button" (click)="btnMayer()"
-            class="my-4 text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            class="cursor-pointer my-4 text-white bg-green-400 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Mayer
         </button>
     </div>
@@ -46,7 +49,7 @@
                     <td class="px-6 py-4">{{ doItem.centro_operacion }}</td>
                     <td class="px-6 py-4">
                         <!-- Botón Guardar -->
-                        <button (click)="onSave(doItem)" class="text-green-600 hover:text-green-800 font-medium">
+                        <button (click)="onSave(doItem)" class="cursor-pointer text-green-600 hover:text-green-800 font-medium">
                             <!-- Icono Guardar -->
                             <svg class="w-6 h-6 text-green-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -61,7 +64,7 @@
                         <span class="mx-2">|</span>
 
                         <!-- Botón Eliminar -->
-                        <button (click)="onDelete($index)" class="text-red-600 hover:text-red-800 font-medium">
+                        <button (click)="onDelete($index)" class="cursor-pointer text-red-600 hover:text-red-800 font-medium">
                             <!-- Icono Eliminar -->
                             <svg class="w-6 h-6 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" fill="none" viewBox="0 0 24 24">
